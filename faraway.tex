@@ -1615,6 +1615,10 @@ n个元素划分成k个圆排列的方案数
 
 $s(n,k)=s(n-1,k-1)+s(n-1,k)\times(n-1)$
 
+记$x$的$n$次上升幂为 $x^{\overline{n}}$
+
+$x^{\overline{n}}=\prod_{i=0}^{n-1}(x+i)=\sum_{i=0}^{n-1}s(n,i)x^i$
+
 \subsubsection*{第二类Stirling数}
 n个元素划分成k个集合的方案数
 
@@ -1625,7 +1629,7 @@ $a^b\%p=a^{(b\%\varphi(p))+\varphi(p)}\%p(b\geq\varphi(p))$
 \subsubsection*{错位排列}
 $0,1,2,9,44,265,1854,14833,133496,41334961$
 
-$D_n=n!(1-\frac{1}{1!}+\frac{1}{2!}+\dots+(-1)^n\frac{1}{n!})$
+$D_n=n!(1-\frac{1}{1!}+\frac{1}{2!}+\dots+(-1)^n\frac{1}{n!})=\left\lfloor {\frac  {n!}{e}}+0.5\right\rfloor$
 
 $D_n=n\times D_{n-1}+(-1)^n$,$D_n=(n-1)\times(D_{n-1}+D_{n-2})$
 
@@ -5031,7 +5035,7 @@ int main()
 \end{lstlisting}
 \subsection{主席树}
 \begin{itemize}
-\item 可用于求区间第k大，区间小于某个值的数的个数(或者和)
+\item 可用于求区间第k大，区间小于某个值的数的个数(或者和)，区间不同的数的个数等
 \end{itemize}
 
     \begin{lstlisting}[language=C++]
@@ -9462,7 +9466,7 @@ double coArea(Point &cir)
 \end{lstlisting}
 
 \subsection{极角排序}
-2018 北京 J 锐角三角形的面积和
+2018 北京 J 锐角三角形的面积和，卡atan2了解一下
 \begin{lstlisting}[language=C++]
 #include<bits/stdc++.h>
 using namespace std;
