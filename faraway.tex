@@ -9,6 +9,7 @@
 \usepackage{hyperref}
 \usepackage{tabularx}
 \usepackage{amsmath}
+\usepackage{graphicx}
 
 \geometry{left=1.5cm,right=1.5cm,top=2.5cm,bottom=2.5cm}
 \newfontfamily\cn{Courier New}
@@ -32,11 +33,11 @@ aboveskip=1em}
 \author{SK}
 \date{\today}
 \begin{document}
-  \maketitle
-  \tableofcontents    
-  \section{DP}
+\maketitle
+\tableofcontents
+\section{DP}
 \subsection{整数划分}
- \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*
 f[n][m]将n划分为不超过m个数的方案数
 6
@@ -66,7 +67,7 @@ int main()
     }
 }
 \end{lstlisting}
-  \subsection{扔蛋问题}
+\subsection{扔蛋问题}
 \begin{lstlisting}[language=C++]
 /*
 有一栋楼共100层，一个鸡蛋从第N层及以上的楼层落下来会摔破， 
@@ -115,8 +116,8 @@ int main()
     }
 }
 \end{lstlisting}
- \subsection{多重背包+二进制优化+bitset优化}
-       \begin{lstlisting}[language=C++]
+\subsection{多重背包+二进制优化+bitset优化}
+\begin{lstlisting}[language=C++]
 /* fjnu 1197 */
 #include<cstring>
 #include<cstdio>
@@ -180,13 +181,13 @@ int main()
 }
 
        \end{lstlisting}
-  \subsection{最长上升子序列}
+\subsection{最长上升子序列}
 \begin{itemize}
 	\item 严格上升lower\_bound，非严格上升upper\_bound
 	\item 也可以用求前缀最值的树状数组
 	\item Dilworth定理：对于一个偏序集，最少链划分等于最长反链长度，也就是说把一个数列划分成最少的最长不升子序列的数目就等于这个数列的最长上升子序列的长度。
 \end{itemize}
-       \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 int main()
 {
     int sk;
@@ -209,11 +210,11 @@ int main()
        \end{lstlisting}
 \subsection{最长公共子序列 优化}
 \begin{itemize}
-\item ICPCCAMP2017 DAY4 B，时间复杂度$O(26n+m^2)$
-\item dp(i, j) 表示第二个串前i个字符与第一个串前dp(i,j)个字符的LCS至少为j，且dp(i, j) 为满足条件的最小值。假设已知dp(i,j)，考虑转移到第二个串的第i + 1 个位置，如果该位置不对LCS产生贡献，则直接转移到dp(i + 1, j)；否则在第一个串的dp(i, j) 位置后找到第一个匹配的字符位置转移到dp(i + 1, j + 1)。
-\item 和LCS的优化类似，\textbf{启示是将原dp状态和dp的值交换一下}，变成求当前dp值下的最优的一个决策。
+	\item ICPCCAMP2017 DAY4 B，时间复杂度$O(26n+m^2)$
+	\item dp(i, j) 表示第二个串前i个字符与第一个串前dp(i,j)个字符的LCS至少为j，且dp(i, j) 为满足条件的最小值。假设已知dp(i,j)，考虑转移到第二个串的第i + 1 个位置，如果该位置不对LCS产生贡献，则直接转移到dp(i + 1, j)；否则在第一个串的dp(i, j) 位置后找到第一个匹配的字符位置转移到dp(i + 1, j + 1)。
+	\item 和LCS的优化类似，\textbf{启示是将原dp状态和dp的值交换一下}，变成求当前dp值下的最优的一个决策。
 \end{itemize}
-      \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /**/
 #include<bits/stdc++.h>
 #define rep(i,a,b) for (int i=(a);i<(b);i++)
@@ -255,8 +256,8 @@ int main()
     return 0;
 }
       \end{lstlisting}
-  \subsection{数位dp}
-      \begin{lstlisting}[language=C++]
+\subsection{数位dp}
+\begin{lstlisting}[language=C++]
 /*
 不要62和4
 */
@@ -297,8 +298,8 @@ int main()
     return 0;
 }
       \end{lstlisting}
-    \subsection{树形dp}
-      \begin{lstlisting}[language=C++]
+\subsection{树形dp}
+\begin{lstlisting}[language=C++]
 /*
 01分数规划+树形dp
 dp[i][j]表示以i为根的联通块大小为j的最大点权和
@@ -364,14 +365,14 @@ int main()
     return 0;
 }
       \end{lstlisting}
-    \subsection{斜率优化 单调队列}
+\subsection{斜率优化 单调队列}
 \begin{itemize}
-		\item $f[i]=min(f[j]+(sum[i]-sum[j]+i-j-1-L)^2) (0\le j<i)$	
-		\item 把i-j弄到sum里，-1弄到L里，简化为$f[i]=min(f[j]+(sum[i]-sum[j]-L)^2) (0\le j<i)$	
-		\item 设j<k<i，且对于i来说，k决策点比j优，则有$\frac{(f[j]+(sum[j]+L)^2)-(f[k]+(sum[k]+L)^2)}{sum[j]-sum[k]} \le 2*sum[i]$
-		\item 维护一个斜率递增的单调队列，不等式右边关于i单增，会造成队首出队
+	\item $f[i]=min(f[j]+(sum[i]-sum[j]+i-j-1-L)^2) (0\le j<i)$
+	\item 把i-j弄到sum里，-1弄到L里，简化为$f[i]=min(f[j]+(sum[i]-sum[j]-L)^2) (0\le j<i)$
+	\item 设j<k<i，且对于i来说，k决策点比j优，则有$\frac{(f[j]+(sum[j]+L)^2)-(f[k]+(sum[k]+L)^2)}{sum[j]-sum[k]} \le 2*sum[i]$
+	\item 维护一个斜率递增的单调队列，不等式右边关于i单增，会造成队首出队
 \end{itemize}
-      \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 typedef long long ll;
 #define N 50010
 ll dp[N],sum[N],q[N];
@@ -407,15 +408,15 @@ int main(){
 
       \end{lstlisting}
 
-      \subsection{斯坦纳树}
+\subsection{斯坦纳树}
 \begin{itemize}
-\item 最优解必然是一棵树，状态压缩，dp[i][j]表示以i为根和对应状态为j的节点连通的子树的
-最小权值。有两种转移。
-\item 枚举子树的形态，即枚举子集：dp[i][j]=min{ dp[i][j]，dp[i][k]+dp[i][l] }，其中k和l是对j的一个划分。
-\item 按照边进行松弛，用spfa：dp[i][j]=min{ dp[i][j]，dp[i'][j]+w[i][i'] }，其中i和i'之间有边相连。
-\item 时间复杂度，枚举子集$O(n\times 3^k)$，spfa$O(n\times 2^k)$。
+	\item 最优解必然是一棵树，状态压缩，dp[i][j]表示以i为根和对应状态为j的节点连通的子树的
+	      最小权值。有两种转移。
+	\item 枚举子树的形态，即枚举子集：dp[i][j]=min{ dp[i][j]，dp[i][k]+dp[i][l] }，其中k和l是对j的一个划分。
+	\item 按照边进行松弛，用spfa：dp[i][j]=min{ dp[i][j]，dp[i'][j]+w[i][i'] }，其中i和i'之间有边相连。
+	\item 时间复杂度，枚举子集$O(n\times 3^k)$，spfa$O(n\times 2^k)$。
 \end{itemize}
-      \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*bzoj4006 [JLOI2015]管道连接*/
 #include<cstring>
 #include<cstdio>
@@ -525,7 +526,7 @@ int main()
 \section{字符串算法}
 \subsection{最小表示法}
 \begin{itemize}
-\item 传入int数组0-based，返回循环同构中字典序最小的起始位置，线性复杂度。
+	\item 传入int数组0-based，返回循环同构中字典序最小的起始位置，线性复杂度。
 \end{itemize}
 \begin{lstlisting}[language=C++]
 #include<bits/stdc++.h>
@@ -557,19 +558,19 @@ int main()
     return 0;
 }
 \end{lstlisting}
-  \subsection{KMP}
+\subsection{KMP}
 \begin{itemize}
-  \item \textbf{period} ：若$0<p\le \left|s\right|$，对于任意$1 \le i\le \left|s\right|$都有$s[i]=s[i+p]$，则$p$是串$s$的一个周期或者说循环节，应该有如下性质，将原串任意一个周期长度的子串复制无限次后，原串是其中一个子串
-  \item \textbf{border} : 若$0\le r< \left|s\right|$，有$pre(s,r)=suf(s,r)$，则$pre(s,r)$是$s$的一个border
-  \item $pre(s,r)$是$s$的一个border 等价于 $\left|s\right|-r$是$s$的周期，比如abaaaba有周期4、6、7，对应的border是aba、a 和空串
-  \item KMP中的$last[i]$表示前缀$s[1..i]$的最大border长度
-  \item 串s的所有boarder长度$\{last[n],last[last[n]],...\}$，所有周期用n减去就得到了
-  \item \textbf{Periodicity Lemma} : p和q是字符串s的周期，$p+q-gcd(p,q)\le\left|s\right|$，则$gcd(p,q)$也是s的周期。
+	\item \textbf{period} ：若$0<p\le \left|s\right|$，对于任意$1 \le i\le \left|s\right|$都有$s[i]=s[i+p]$，则$p$是串$s$的一个周期或者说循环节，应该有如下性质，将原串任意一个周期长度的子串复制无限次后，原串是其中一个子串
+	\item \textbf{border} : 若$0\le r< \left|s\right|$，有$pre(s,r)=suf(s,r)$，则$pre(s,r)$是$s$的一个border
+	\item $pre(s,r)$是$s$的一个border 等价于 $\left|s\right|-r$是$s$的周期，比如abaaaba有周期4、6、7，对应的border是aba、a 和空串
+	\item KMP中的$last[i]$表示前缀$s[1..i]$的最大border长度
+	\item 串s的所有boarder长度$\{last[n],last[last[n]],...\}$，所有周期用n减去就得到了
+	\item \textbf{Periodicity Lemma} : p和q是字符串s的周期，$p+q-gcd(p,q)\le\left|s\right|$，则$gcd(p,q)$也是s的周期。
 \end{itemize}
 
 KMP求last数组，字符串0-based，last数组1-based
 
-  \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 void get_last(char *t,int len)
 {
 	int i=0,j=last[0]=-1;
@@ -580,11 +581,11 @@ void get_last(char *t,int len)
     }
 }
   \end{lstlisting}
-  
+
 poj 3461 求t在s中出现次数
 
 s[i] 0..n-1		t[i] 0..m-1		last[i] 1..m
-  \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 
 int kmp()
 {
@@ -599,10 +600,10 @@ int kmp()
     return ans;
 }
   \end{lstlisting}
-  
+
 2018 牛客多校 求二维矩阵的循环节，定义为平铺无限次后，原矩阵是其中一个子矩阵
 找出每行串的最大公共周期，再找出每列串的最大公共周期
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 int R=0,C=0;
 for(int i=0;i<n;++i)
 {
@@ -615,9 +616,9 @@ for(int i=0;i<n;++i)
 for(int j=1;j<=m;++j) if(cnt[j]==n) {C=j;break;}
 //之后同理，竖着再做m次求出R
     \end{lstlisting}
-    
+
 hdu3336 求字符串s的所有前缀串（n个）在s中出现的总次数
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 int main()
 {
     int T;
@@ -638,9 +639,9 @@ int main()
     }
 }
     \end{lstlisting}
-    
+
 cf 432D 求字符串s的所有boader各自的出现次数
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 int main()
 {
     scanf("%s",s);
@@ -656,10 +657,10 @@ int main()
     return 0;
 }
     \end{lstlisting}
-   \subsection{扩展kmp}
+\subsection{扩展kmp}
 \begin{itemize}
-\item last[i]:t[i...m-1] 与t[0...m-1] 的最长公共前缀
-\item extend[i]:s[i...n-1] 与t[0...m-1] 的最长公共前缀
+	\item last[i]:t[i...m-1] 与t[0...m-1] 的最长公共前缀
+	\item extend[i]:s[i...n-1] 与t[0...m-1] 的最长公共前缀
 \end{itemize}
 \begin{lstlisting}[language=C++]
 void pre_exkmp(char *t,int m,int *last){
@@ -702,7 +703,7 @@ void exkmp(char *s,int n,char *t,int m,int *last,int *extend){
 
 hdu 4333 求将一个串循环移位后的n个串中比原串小的，相等的，大的串的个数
 
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 #define N 100010
 char s[N*2],t[N];
 int last[N*2],extend[N*2];
@@ -737,8 +738,8 @@ int main(){
     }
 }
     \end{lstlisting}
-  \subsection{Manacher算法}
-	  \begin{lstlisting}[language=C++]
+\subsection{Manacher算法}
+\begin{lstlisting}[language=C++]
 /*
 求最长回文子串
 P[i]来记录以字符S[i]为中心的最长回文子串向左/右扩张的长度（包括S[i]）
@@ -775,8 +776,8 @@ int main(){
     }
 }
 	  \end{lstlisting}
-   \subsection{AC自动机}
-    \begin{lstlisting}[language=C++]    
+\subsection{AC自动机}
+\begin{lstlisting}[language=C++]    
 /*
 hdu 5880 
 敏感词屏蔽，给一堆敏感词，给一段文本，要求把文本中所有的敏感词用*代替
@@ -897,8 +898,8 @@ int main()
     }
 }
     \end{lstlisting}
-  \subsection{Trie图}
-  \begin{lstlisting}[language=C++]
+\subsection{Trie图}
+\begin{lstlisting}[language=C++]
 /*
 hihocoder 1036 
 查询主串中是否含有字典里的单词
@@ -987,13 +988,13 @@ int main()
   \end{lstlisting}
 \subsection{回文自动机}
 \begin{figure}[h!]
-\centering
-\includegraphics[scale=0.6]{Palin.png}
-\label{fig:Palin}
+	\centering
+	\includegraphics[scale=0.6]{images/Palin.png}
+	\label{fig:Palin}
 \end{figure}
 求串S某个前缀内本质不同回文串的个数、求串S内每一个本质不同回文串出现的次数、求串S内回文串的个数
 
-  \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*
 bzoj 3676 [Apio2014]回文串
 求出s的所有回文子串中的出现次数乘以长度的最大值。 
@@ -1185,12 +1186,12 @@ int main()
     return 0;
 }
 \end{lstlisting}
-  \subsection{后缀数组}
+\subsection{后缀数组}
 \begin{itemize}
 	\item 后缀数组sa[i] 字典序第i小的后缀的开头位置
 	\item 名次数组rk[i] 保存的是Suffix(i)在所有后缀中从小到大的排名
 	\item height数组 定义height[i]=suffix(sa[i-1])和suffix(sa[i])的最长公
-	共前缀，也就是排名相邻的两个后缀的最长公共前缀。
+	      共前缀，也就是排名相邻的两个后缀的最长公共前缀。
 \end{itemize}
 \begin{lstlisting}[language=C++]
 #define N 200010
@@ -1230,7 +1231,7 @@ void DA(int *r,int *sa,int *rk,int *height,int n,int m)
 \end{lstlisting}
 
 spoj 705 求不同子串的个数
-  \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 int main()
 {
     int sk;
@@ -1254,9 +1255,9 @@ int main()
 
 
   \end{lstlisting}
-  
+
 poj 2774 求两个字符串的最长公共子串
-  \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 
 int main()
 {
@@ -1278,39 +1279,39 @@ int main()
     cout<<ans<<endl;
 }
   \end{lstlisting}
-  
+
 \subsection{后缀自动机}
 \begin{tabularx}{10cm}{llX}  % 10cm 減去前兩個欄位寬度後，剩下的通通給  
-\hline 
-Status & Substring  & endpos  \\  
-\hline  
-S  &  & {0,1,2,3,4,5,6} \\  
-1 & a & {1,2,5} \\  
-2 & aa & {2} \\
-3 & aab & {3} \\
-4 & aabb,abb,bb & {4}\\
-5 & b & {3,4,6}\\
-6 & aabba,abba,bba,ba & {5}\\
-7 & aabbab,abbab,bbab,bab & {6}\\
-8 & ab & {3,6}\\
-9 & aabbabd,abbabd,bbabd,babd,abd,bd,d & {7}\\
-\hline\label{key}
-\end{tabularx}  
-  
+	\hline
+	Status & Substring                          & endpos          \\
+	\hline
+	S      &                                    & {0,1,2,3,4,5,6} \\
+	1      & a                                  & {1,2,5}         \\
+	2      & aa                                 & {2}             \\
+	3      & aab                                & {3}             \\
+	4      & aabb,abb,bb                        & {4}             \\
+	5      & b                                  & {3,4,6}         \\
+	6      & aabba,abba,bba,ba                  & {5}             \\
+	7      & aabbab,abbab,bbab,bab              & {6}             \\
+	8      & ab                                 & {3,6}           \\
+	9      & aabbabd,abbabd,bbabd,babd,abd,bd,d & {7}             \\
+	\hline\label{key}
+\end{tabularx}
+
 \begin{figure}[h!]
-\centering
-\includegraphics[scale=0.8]{sam.jpg}
-\label{fig:sam}
+	\centering
+	\includegraphics[scale=0.8]{images/sam.jpg}
+	\label{fig:sam}
 \end{figure}
- 
+
 \begin{itemize}
-\item 对于一个字符串S，它对应的后缀自动机是一个最小的确定有限状态自动机，接受且只接受S的后缀。
-\item S的子串最终会到达一个合法状态，不是子串的话最终会无路可走。
-\item 对于S的两个子串$s1$和$s2$，不妨设$length(s1) \leq length(s2)$，$s1$是$s2$的后缀当且仅当$endpos(s2) \subseteq endpos(s1)$，$s1$不是$s2$的后缀当且仅当$endpos(s1) \bigcap endpos(s2) = \emptyset$
-\item 对于一个状态$st$，以及任意$s \in substrings(st)$，都有$s$是$longest(st)$的后缀。
-\item 对于一个状态$st$，以及任意的$longest(st)$的后缀$s$，如果$s$的长度满足：$length(shortest(st)) \leq length(s) \leq length(longest(st))$，那么$s \in substrings(st)$
-\item 广义后缀自动机，比如多个串，每个串插入前让last=1，或者对一个trie树建广义后缀自动机，添加每个点以父节点的last继承过来，类似树上主席树insert的方式。加上最后一段的while的复杂度据说是带一个根号的。
-\item 维护什么东西的时候拓扑排序转移一下总不会错！
+	\item 对于一个字符串S，它对应的后缀自动机是一个最小的确定有限状态自动机，接受且只接受S的后缀。
+	\item S的子串最终会到达一个合法状态，不是子串的话最终会无路可走。
+	\item 对于S的两个子串$s1$和$s2$，不妨设$length(s1) \leq length(s2)$，$s1$是$s2$的后缀当且仅当$endpos(s2) \subseteq endpos(s1)$，$s1$不是$s2$的后缀当且仅当$endpos(s1) \bigcap endpos(s2) = \emptyset$
+	\item 对于一个状态$st$，以及任意$s \in substrings(st)$，都有$s$是$longest(st)$的后缀。
+	\item 对于一个状态$st$，以及任意的$longest(st)$的后缀$s$，如果$s$的长度满足：$length(shortest(st)) \leq length(s) \leq length(longest(st))$，那么$s \in substrings(st)$
+	\item 广义后缀自动机，比如多个串，每个串插入前让last=1，或者对一个trie树建广义后缀自动机，添加每个点以父节点的last继承过来，类似树上主席树insert的方式。加上最后一段的while的复杂度据说是带一个根号的。
+	\item 维护什么东西的时候拓扑排序转移一下总不会错！
 \end{itemize}
 
 
@@ -1506,16 +1507,16 @@ int main()
 
 \subsection{正则表达式}
 \begin{itemize}
-\item ``.''匹配除``\textbackslash n''之外的任何单个字符。
-\item ``\textbackslash \^\quad ''匹配输入字符串的开始位置,``\textbackslash \$''匹配输入字符串结尾的位置。
-\item ``|'' 两个匹配条件逻辑或。
-\item ``\textbackslash w''匹配字母或数字或下划线，``\textbackslash W''匹配任意不是字母、数字、下划线的字符。
-\item ``\textbackslash d''匹配任意一个数字，``\textbackslash D''匹配任意非数字字符。
+	\item ``.''匹配除``\textbackslash n''之外的任何单个字符。
+	\item ``\textbackslash \^\quad ''匹配输入字符串的开始位置,``\textbackslash \$''匹配输入字符串结尾的位置。
+	\item ``|'' 两个匹配条件逻辑或。
+	\item ``\textbackslash w''匹配字母或数字或下划线，``\textbackslash W''匹配任意不是字母、数字、下划线的字符。
+	\item ``\textbackslash d''匹配任意一个数字，``\textbackslash D''匹配任意非数字字符。
 
-\item ``*''0次或多次匹配前面的字符或子表达式，``+''1次或多次匹配前面的字符或子表达式,``?''0次或1次匹配前面的字符或子表达式。
-\item ``\{n\}'' 正好匹配n次。``\{n,\}'' 至少匹配n次。``\{n,m\}'' 匹配n到m次。
-\item ``[xyz]''字符集，匹配包含的任一字符。
-\item ``\textbackslash b''匹配一个单词边界,``\textbackslash B''匹配非单词边界。
+	\item ``*''0次或多次匹配前面的字符或子表达式，``+''1次或多次匹配前面的字符或子表达式,``?''0次或1次匹配前面的字符或子表达式。
+	\item ``\{n\}'' 正好匹配n次。``\{n,\}'' 至少匹配n次。``\{n,m\}'' 匹配n到m次。
+	\item ``[xyz]''字符集，匹配包含的任一字符。
+	\item ``\textbackslash b''匹配一个单词边界,``\textbackslash B''匹配非单词边界。
 \end{itemize}
 
 \begin{lstlisting}[language=C++]
@@ -1590,9 +1591,9 @@ $C_r^{k}=C_{r-1}^{k}+C_{r-1}^{k-1}$\qquad
 $C_r^mC_m^k=C_r^kC_{r-k}^{m-k}$\par
 $\sum_{k \le n}C_{r+k}^k=C_{r+n+1}^{n}$\qquad
 $\sum_{0 \le k \le n}C_{k}^{m}=C_{n+1}^{m+1}$\par
-$\sum_{0 \le i \le n}C_n^{i}=2^n$\qquad 
+$\sum_{0 \le i \le n}C_n^{i}=2^n$\qquad
 $\sum_{0 \le i \le n}C_n^{i}\times i =n\times 2^{n-1}$\qquad
-$\sum_{0 \le i \le n}C_n^{i}\times i^2 =n\times(n+1)\times  2^{n-2}$\par 
+$\sum_{0 \le i \le n}C_n^{i}\times i^2 =n\times(n+1)\times  2^{n-2}$\par
 $\sum_{0 \le i \le n}(C_n^{i})^2=C_{2n}^{n}$\par
 The number of non-negative solutions to equation\par  $x_1+x_2+x_3+\dots+x_k=n$ is $\tbinom{n+k-1}{k-1}$\par
 $x_1+x_2+x_3+\dots+x_k=n (0\le x_i\le S)$is  $\sum_{i=0}^{k}(-1)^i\tbinom{k}{i}\tbinom{n+k-1-i(S+1)}{k-1}$
@@ -1636,7 +1637,7 @@ $D_n=n\times D_{n-1}+(-1)^n$,$D_n=(n-1)\times(D_{n-1}+D_{n-2})$
 \subsubsection*{Bell数}
 $B_n$表示把$n$个带标号的物品划分为若干不相交集合的方案数。\par
 $B_{n+1}=\sum_{k=0}^nC(n,k)B_k$\par
-$B_{n}=\sum_{k=1}^nS(n,k)$\par     
+$B_{n}=\sum_{k=1}^nS(n,k)$\par
 \subsubsection*{蔡勒公式}
 \begin{lstlisting}[language=C++] 
 int calc(int day,int month,int year)
@@ -1649,11 +1650,11 @@ int calc(int day,int month,int year)
 
 
 \subsubsection*{皮克定理}
-适用于顶点坐标都是整点的简单多边形。面积$A$,内部格点数目$i$,边上格点数目$b$的关系 \par 
+适用于顶点坐标都是整点的简单多边形。面积$A$,内部格点数目$i$,边上格点数目$b$的关系 \par
 $A=i+b/2-1$
 
 \subsubsection*{幻方构造}
-        \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 int n;
 int a[50][50];
 int main()
@@ -1677,11 +1678,11 @@ int main()
         \end{lstlisting}
 \subsubsection*{勾股数完全公式}
 \begin{itemize}
-\item 公式$a=m,b=\frac{m^2/k-k}{2},c=\frac{m^2/k+k}{2}$
-\item 当m确定为任意一个大于等于3的奇数时，k={1，m\^2的所有小于m的因子}
-\item 当m确定为任意一个大于等于4的偶数时，k={m\^2 / 2的所有小于m的偶数因子}
+	\item 公式$a=m,b=\frac{m^2/k-k}{2},c=\frac{m^2/k+k}{2}$
+	\item 当m确定为任意一个大于等于3的奇数时，k={1，m\^2的所有小于m的因子}
+	\item 当m确定为任意一个大于等于4的偶数时，k={m\^2 / 2的所有小于m的偶数因子}
 \end{itemize}
-         \begin{lstlisting}[language=C++]   
+\begin{lstlisting}[language=C++]   
 /*Codeforces Round #368 (Div. 2) C Pythagorean Triples */
     long long n;
     cin>>n;
@@ -1693,25 +1694,25 @@ int main()
     }
         \end{lstlisting}
 \subsubsection*{固定k个点为根的带标号有根树森林计数}
-        固定$k$个点作为根的$n$个点的带标号有根树森林的方案数是$k\times n^{n-k-1}$。
+固定$k$个点作为根的$n$个点的带标号有根树森林的方案数是$k\times n^{n-k-1}$。
 \subsubsection*{斯特林近似公式}
-        $n!\approx\sqrt{2\pi n}(\frac{n}{e})^n$
+$n!\approx\sqrt{2\pi n}(\frac{n}{e})^n$
 
 \subsubsection*{maxmum-minmum identity}
 \begin{equation}
-\begin{aligned}
-\max\{x_{1},x_{2},\ldots ,x_{{n}}\}&=\sum _{{i=1}}^{n}x_{i}-\sum _{{i<j}}\min\{x_{i},x_{j}\}+\sum _{{i<j<k}}\min\{x_{i},x_{j},x_{k}\}-\cdots \\&\qquad \cdots +\left(-1\right)^{{n+1}}\min\{x_{1},x_{2},\ldots ,x_{n}\},
-\end{aligned}
+	\begin{aligned}
+		\max\{x_{1},x_{2},\ldots ,x_{{n}}\} & =\sum _{{i=1}}^{n}x_{i}-\sum _{{i<j}}\min\{x_{i},x_{j}\}+\sum _{{i<j<k}}\min\{x_{i},x_{j},x_{k}\}-\cdots \\&\qquad \cdots +\left(-1\right)^{{n+1}}\min\{x_{1},x_{2},\ldots ,x_{n}\},
+	\end{aligned}
 \end{equation}
 \subsubsection*{生成树计数}
-	有标号，完全图，无根树：Cayley's Formula，$T_n=n^{n-2}$
-	有标号，完全图，k选定根，生成森林，$T_{n,k}=k^2n^{n-k-1}$
+有标号，完全图，无根树：Cayley's Formula，$T_n=n^{n-2}$
+有标号，完全图，k选定根，生成森林，$T_{n,k}=k^2n^{n-k-1}$
 \subsubsection*{环}
-	有标号，无孤立点，有向：错位排列 $dp_{n}=(n-1)(dp_{n-1}+dp_{n-2})$	
-	有标号，无孤立点，无向	$dp_{n}=(n-1)(dp_{n-1}+dp_{n-2})-\frac{(n-1)(n-2)}{2}dp_{n-3}$
+有标号，无孤立点，有向：错位排列 $dp_{n}=(n-1)(dp_{n-1}+dp_{n-2})$
+有标号，无孤立点，无向	$dp_{n}=(n-1)(dp_{n-1}+dp_{n-2})-\frac{(n-1)(n-2)}{2}dp_{n-3}$
 \subsection{prufer编码}
-	对于一棵树，我们每次将编号最小的叶子节点的父亲放到序列中，并将该叶子节点删除掉，如此操作一直到只剩两个节点为止，那么此时我们就得到了一棵树的有n-2项的prufer编码，显然，每一个合法的prufer编码与树是一一对应的。现在我们可以把一些有关树的信息与其对应的prufer编码相关联，某一节点的度数等于该节点编号在prufer编码里面的出现次数+1（他的每一个儿子必然都会在序列里面将他生成一次，而他还有一个父亲），现在通过prufer编码我们可以解决一类关于给定度数条件的树计数问题。
-	对于当前给定的度数条件我们可以翻译为他在prufer编码里面出现了多少次，对于这个次数我们可以通过全排列再除以交换相同项的方式来得到最后的答案。
+对于一棵树，我们每次将编号最小的叶子节点的父亲放到序列中，并将该叶子节点删除掉，如此操作一直到只剩两个节点为止，那么此时我们就得到了一棵树的有n-2项的prufer编码，显然，每一个合法的prufer编码与树是一一对应的。现在我们可以把一些有关树的信息与其对应的prufer编码相关联，某一节点的度数等于该节点编号在prufer编码里面的出现次数+1（他的每一个儿子必然都会在序列里面将他生成一次，而他还有一个父亲），现在通过prufer编码我们可以解决一类关于给定度数条件的树计数问题。
+对于当前给定的度数条件我们可以翻译为他在prufer编码里面出现了多少次，对于这个次数我们可以通过全排列再除以交换相同项的方式来得到最后的答案。
 \subsection{矩阵乘法}
 \begin{lstlisting}[language=C++]
 //正常版本：无需担心RE
@@ -1746,10 +1747,10 @@ void MUL(int a[][N],int b[][N],int d[][N],int n){
 
 \subsection{Bernoulli数}
 \begin{itemize}
-\item $S_m(n)=\sum_{k=1}^{n}k^m$
-\item $S_m(n)$显然是一个$m+1$阶多项式，用伯努利数显式地写出该多项式。
-\item $S_m(n)= \frac{1}{m+1} \sum_{k=0}^{m} \dbinom{m+1}{k}B_{k}^{+}n^{m+1-k}$
-\item 这里$B_{k}^{+}$表示第二类伯努利数，$B_1^+=+\frac{1}{2}$
+	\item $S_m(n)=\sum_{k=1}^{n}k^m$
+	\item $S_m(n)$显然是一个$m+1$阶多项式，用伯努利数显式地写出该多项式。
+	\item $S_m(n)= \frac{1}{m+1} \sum_{k=0}^{m} \dbinom{m+1}{k}B_{k}^{+}n^{m+1-k}$
+	\item 这里$B_{k}^{+}$表示第二类伯努利数，$B_1^+=+\frac{1}{2}$
 \end{itemize}
 
 $O(nlogn)$求Bernoulli数
@@ -1897,11 +1898,11 @@ namespace polysum
 \end{lstlisting}
 \subsection{多项式inv,ln,exp:NTT实现}
 \begin{itemize}
-\item 多项式存在a[0]......a[t-1]
-\item 多项式的inv,ln,exp存在b[0]......b[t-1]
-\item 原多项式放在a[0]......b[t-1]
-\item 多项式对$x^t$取模
-\item 注意数组大小，注意预处理长度，注意将多项式长度操作为2的整数次幂
+	\item 多项式存在a[0]......a[t-1]
+	\item 多项式的inv,ln,exp存在b[0]......b[t-1]
+	\item 原多项式放在a[0]......b[t-1]
+	\item 多项式对$x^t$取模
+	\item 注意数组大小，注意预处理长度，注意将多项式长度操作为2的整数次幂
 \end{itemize}
 \begin{lstlisting}[language=C++]
 #include <bits/stdc++.h>
@@ -2095,42 +2096,42 @@ LL ToneLLi_Shanks(LL n, LL p) {
   return r;}
 \end{lstlisting}
 
-        \subsection{数论公式}
-        对任意$i,j,(i,m)=(j,m),(x,m)=0,i*x^k1=i,j*x^k2=j$,有$k1=k2$,(其中k1,k2是最小循环节)\par
-        若$x^p=1$，要找最小循环节，只需要独立枚举p的每种素数的指数。\par 
-        
-            常见积性函数：\par
-            $id(n)=n$\qquad
-       		$e(n)=[n=1]$\qquad
-       		$I(n)=1$\par
-            $d(n)=\sum_{d|n}1$\qquad
-         	$\sigma(n)=\sum_{d|n}d$\par
-         	欧拉函数$\varphi(n)$\qquad
-         	莫比乌斯函数$\mu(n)$\par
-            一些性质：\par
-            $n=\sum_{d|n}\varphi(d)$\qquad($id=\varphi \times I$)\par
-            $e(n)=\sum_{d|n}\mu(d)$\qquad($e=\mu \times I$)\par
-            $\mu\times id=\varphi$\par
-            $\sum_{i=1}^n\sum_{j=1}^m i\times j[\gcd(i,j)=d]=\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{d}\rfloor} id\times jd[\gcd(i,j)=1]$\par
-            $\mu^2(n)=\sum_{d^2|n}\mu(d)$\par
-            $\sum_{i=1}^nd(n)=\sum_{i=1}^n\lfloor\frac{n}{i}\rfloor$\par
-            莫比乌斯反演：\par
-            $f(n)=\sum_{d|n}g(d)$\par
-            $g(n)=\sum_{d|n}\mu(d)f(\frac{n}{d})$\par
-            $f(n)=\sum_{i=1}^nt(i)g(\lfloor\frac{n}{i}\rfloor)$\par
-            $g(n)=\sum_{i=1}^n\mu(i)t(i)f(\lfloor\frac{n}{i}\rfloor)$\par
-           	杜教筛：\par
-           	\begin{itemize}
-           	\item 记$S(n)=\sum_{i=1}^{n}f(i)$，设法找到一个$g(x)$，得到递推式$g(1)S(n)=\sum_{i=1}^{n}(f\times g)(i)-\sum_{i=2}^{n}g(i)S(\lfloor\frac{n}{i}\rfloor)$
-           	\item 求$S(n)=\sum_{i=1}^n (f \cdot g)(i)$的值且$g(x)$为完全积性函数，这时有$S(n)=\sum_{i=1}^n[(f\times 1) \cdot g](i)-\sum_{i=2}^n S(\lfloor \frac{n}{i} \rfloor)g(i)$
-           	\item 求$S(n)=\sum_{i=1}^n (f\times g)(i)$的值，这时有
-           	$S(n)=\sum_{i=1}^n g(i)\sum_{ij \leq n}(f\times 1)(j)-\sum_{i=2}^n S(\lfloor \frac{n}{i} \rfloor)$
-           	\end{itemize}
-           	
-           	
+\subsection{数论公式}
+对任意$i,j,(i,m)=(j,m),(x,m)=0,i*x^k1=i,j*x^k2=j$,有$k1=k2$,(其中k1,k2是最小循环节)\par
+若$x^p=1$，要找最小循环节，只需要独立枚举p的每种素数的指数。\par
+
+常见积性函数：\par
+$id(n)=n$\qquad
+$e(n)=[n=1]$\qquad
+$I(n)=1$\par
+$d(n)=\sum_{d|n}1$\qquad
+$\sigma(n)=\sum_{d|n}d$\par
+欧拉函数$\varphi(n)$\qquad
+莫比乌斯函数$\mu(n)$\par
+一些性质：\par
+$n=\sum_{d|n}\varphi(d)$\qquad($id=\varphi \times I$)\par
+$e(n)=\sum_{d|n}\mu(d)$\qquad($e=\mu \times I$)\par
+$\mu\times id=\varphi$\par
+$\sum_{i=1}^n\sum_{j=1}^m i\times j[\gcd(i,j)=d]=\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{d}\rfloor} id\times jd[\gcd(i,j)=1]$\par
+$\mu^2(n)=\sum_{d^2|n}\mu(d)$\par
+$\sum_{i=1}^nd(n)=\sum_{i=1}^n\lfloor\frac{n}{i}\rfloor$\par
+莫比乌斯反演：\par
+$f(n)=\sum_{d|n}g(d)$\par
+$g(n)=\sum_{d|n}\mu(d)f(\frac{n}{d})$\par
+$f(n)=\sum_{i=1}^nt(i)g(\lfloor\frac{n}{i}\rfloor)$\par
+$g(n)=\sum_{i=1}^n\mu(i)t(i)f(\lfloor\frac{n}{i}\rfloor)$\par
+杜教筛：\par
+\begin{itemize}
+	\item 记$S(n)=\sum_{i=1}^{n}f(i)$，设法找到一个$g(x)$，得到递推式$g(1)S(n)=\sum_{i=1}^{n}(f\times g)(i)-\sum_{i=2}^{n}g(i)S(\lfloor\frac{n}{i}\rfloor)$
+	\item 求$S(n)=\sum_{i=1}^n (f \cdot g)(i)$的值且$g(x)$为完全积性函数，这时有$S(n)=\sum_{i=1}^n[(f\times 1) \cdot g](i)-\sum_{i=2}^n S(\lfloor \frac{n}{i} \rfloor)g(i)$
+	\item 求$S(n)=\sum_{i=1}^n (f\times g)(i)$的值，这时有
+	      $S(n)=\sum_{i=1}^n g(i)\sum_{ij \leq n}(f\times 1)(j)-\sum_{i=2}^n S(\lfloor \frac{n}{i} \rfloor)$
+\end{itemize}
+
+
 \subsection{莫比乌斯函数}
 \begin{itemize}
-\item 作为容斥系数求1到n中有多少不含完全平方数因子的数
+	\item 作为容斥系数求1到n中有多少不含完全平方数因子的数
 \end{itemize}
 \begin{lstlisting}[language=C++]
 ll calc(ll n)
@@ -2220,7 +2221,7 @@ int main()
     }
 }
 
-\end{lstlisting}    
+\end{lstlisting}
 \subsection{素数和}
 \begin{lstlisting}[language=C++]
 #include <bits/stdc++.h>
@@ -2275,7 +2276,7 @@ int main(){
 }
 \end{lstlisting}
 \subsection{求1e11内素数个数}
-        \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
@@ -2463,8 +2464,8 @@ int main(){
 \end{lstlisting}
 
 
-    \subsection{中国剩余定理CRT}
-      \begin{lstlisting}[language=C++]
+\subsection{中国剩余定理CRT}
+\begin{lstlisting}[language=C++]
 #include<cstdio>
 #include<cstring>
 #include<iostream>
@@ -2502,8 +2503,8 @@ int main(){
     printf("%lld\n",CRT());
 }
       \end{lstlisting}
-    \subsection{高斯消元}
-      \begin{lstlisting}[language=C++]
+\subsection{高斯消元}
+\begin{lstlisting}[language=C++]
 /*
 求逆矩阵
 */
@@ -2574,9 +2575,9 @@ int main(){
     }
 } 
       \end{lstlisting}
-    \subsection{Lucas定理}
-    $\dbinom{n}{m}  \equiv \dbinom{\frac{n}{p}}{\frac{m}{p}} \ast \dbinom{n\%p}{m\%p} (mod \  p)$(即认为在p进制下，对每一位分别求组合数再相乘)
-        \begin{lstlisting}[language=C++]
+\subsection{Lucas定理}
+$\dbinom{n}{m}  \equiv \dbinom{\frac{n}{p}}{\frac{m}{p}} \ast \dbinom{n\%p}{m\%p} (mod \  p)$(即认为在p进制下，对每一位分别求组合数再相乘)
+\begin{lstlisting}[language=C++]
 const ll mod=110119;//mod 必须是素数
 ll per[mod+10],invp[mod+10];
 ll power(ll x,ll p)
@@ -2616,8 +2617,8 @@ void pre()
     }
 }
         \end{lstlisting}
-    \subsection{O(1)快速乘}
-        \begin{lstlisting}[language=C++]
+\subsection{O(1)快速乘}
+\begin{lstlisting}[language=C++]
 ll multi(ll x,ll y,ll MOD)
 {
     x=x%MOD,y=y%MOD;
@@ -2631,8 +2632,8 @@ LL mul(LL x, LL y, LL z)
 }
 
         \end{lstlisting}
-    \subsection{组合数取模终极版}
-        \begin{lstlisting}[language=C++]
+\subsection{组合数取模终极版}
+\begin{lstlisting}[language=C++]
 /*
 计算组合数com(n,m) % mod
 (1 ≤ n ≤ 10^18, 0 ≤ k ≤ n, 2 ≤ m ≤ 1 000 000)
@@ -2747,7 +2748,7 @@ int main()
         \end{lstlisting}
 
 \subsection{拆系数FFT}
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 #include<bits/stdc++.h>
 using namespace std;
 #define MAXL (1<<19)
@@ -2873,7 +2874,7 @@ int main()
 
     \end{lstlisting}
 \subsection{分治+fft}
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*
 FFT+cdq
 dp[i]=sigma(dp[j]*a[i-j])
@@ -2991,13 +2992,13 @@ int main()
 }
 
     \end{lstlisting}
-    
+
 \subsection{FWT}
 \begin{itemize}
-\item 快速沃尔什变换，要解决的是$$C_k = \sum_{i \oplus j=k} A_i \times B_j$$
-\item 一个多项式异或卷积n次，可以先FWT，然后每个值分别快速幂，最后再UFWT
+	\item 快速沃尔什变换，要解决的是$$C_k = \sum_{i \oplus j=k} A_i \times B_j$$
+	\item 一个多项式异或卷积n次，可以先FWT，然后每个值分别快速幂，最后再UFWT
 \end{itemize}
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*
 hdu5909
 FWT优化树形dp
@@ -3082,7 +3083,7 @@ int main()
     return 0;
 }
     \end{lstlisting}
-        \subsection{Pell方程}
+\subsection{Pell方程}
 $x^2–dy^2=1(1\leq d\leq10^5)$,求$(x,y)$的最小正整数解。
 \begin{lstlisting}[language=python]
 n=int(raw_input())
@@ -3114,9 +3115,9 @@ if j*j>n:
 \end{lstlisting}
 \subsection{Stern-Brocot tree}
 \begin{figure}[h!]
-\centering
-\includegraphics[scale=0.8]{sbtree.png}
-\label{fig:SBtree}
+	\centering
+	\includegraphics[scale=0.8]{images/sbtree.png}
+	\label{fig:SBtree}
 \end{figure}
 
 $(\frac{b}{a},\frac{d}{c})$ 开区间
@@ -3177,11 +3178,11 @@ public static void dfs(BigInteger a,BigInteger b,BigInteger c,BigInteger d,
         }
     }
 \end{lstlisting}
-        \subsection{类欧几里得算法}
+\subsection{类欧几里得算法}
 \begin{eqnarray*}
-f&=&\sum_{i=0}^n\lfloor\frac{ai+b}{c}\rfloor\\
-g&=&\sum_{i=0}^ni\lfloor\frac{ai+b}{c}\rfloor\\
-h&=&\sum_{i=0}^n{\lfloor\frac{ai+b}{c}\rfloor}^2
+	f&=&\sum_{i=0}^n\lfloor\frac{ai+b}{c}\rfloor\\
+	g&=&\sum_{i=0}^ni\lfloor\frac{ai+b}{c}\rfloor\\
+	h&=&\sum_{i=0}^n{\lfloor\frac{ai+b}{c}\rfloor}^2
 \end{eqnarray*}
 
 1e9不取模
@@ -3278,7 +3279,7 @@ int main()
 \end{lstlisting}
 
 \subsection{BM算法(orz dls)}
-   	\begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 #include <cstdio>
 #include <cstring>
 #include <cmath>
@@ -3377,9 +3378,9 @@ int main() {
     }
 }
 
-   	\end{lstlisting}   	
+   	\end{lstlisting}
 \subsection{自适应Simpson}
-      
+
 \begin{lstlisting}[language=C++]
 double simpson(double a,double b) {
     double c = a + (b-a)/2;
@@ -3395,13 +3396,13 @@ double asr(double a,double b,double eps) {
     return asr(a,b,eps,simpson(a,b));
 }
 \end{lstlisting}
-   	\subsection{单纯形算法}
+\subsection{单纯形算法}
 \begin{itemize}
-\item n个（默认非负）实数变量，m个约束
-\item 第i个约束形如$ \sum_{j=1}^{n}a[i][j]\times x[j] \leq a[i][0] $
-\item 使目标函数$ \sum_{i=1}^{n}a[0][i] \times x[i]$最大
-\item 所有约束为大于等于，使目标函数最小，这时候需要对偶一下
-\item 目标$min{CX}$，约束$AX\geq B$，转化成目标$min{B^T Y}$，约束$A^T Y \leq C^T$，两个问题的最优解是相等的，且能保证目标函数取最优解时各个变量为整数
+	\item n个（默认非负）实数变量，m个约束
+	\item 第i个约束形如$ \sum_{j=1}^{n}a[i][j]\times x[j] \leq a[i][0] $
+	\item 使目标函数$ \sum_{i=1}^{n}a[0][i] \times x[i]$最大
+	\item 所有约束为大于等于，使目标函数最小，这时候需要对偶一下
+	\item 目标$min{CX}$，约束$AX\geq B$，转化成目标$min{B^T Y}$，约束$A^T Y \leq C^T$，两个问题的最优解是相等的，且能保证目标函数取最优解时各个变量为整数
 \end{itemize}
 求$\max\{cx|Ax\leq b,x\geq0\}$的解。
 \begin{lstlisting}[language=C++]
@@ -3543,7 +3544,7 @@ int main () {
     return 0;
 }
 
-\end{lstlisting}   
+\end{lstlisting}
 
 \section{数据结构}
 
@@ -4036,9 +4037,9 @@ int main ()
 }
 \end{lstlisting}
 
-    \subsection{并查集}
-    \subsubsection*{带权并查集/种类并查集}
-        \begin{lstlisting}[language=C++]
+\subsection{并查集}
+\subsubsection*{带权并查集/种类并查集}
+\begin{lstlisting}[language=C++]
 int fa[N],dis[N];
 void init()
 {
@@ -4062,8 +4063,8 @@ bool Merge(int x,int y,int c)//x->y c
     return true;
 }
         \end{lstlisting}
-    \subsubsection*{带撤销并查集}
-     \begin{lstlisting}[language=C++]
+\subsubsection*{带撤销并查集}
+\begin{lstlisting}[language=C++]
 int Find(int x)
 {
     while(x!=fa[x]) x=fa[x];
@@ -4271,8 +4272,8 @@ int main()
     }
 }
 \end{lstlisting}
-    \subsection{Trie树}
-        \begin{lstlisting}[language=C++]
+\subsection{Trie树}
+\begin{lstlisting}[language=C++]
 /*
 poj 3630
 */
@@ -4331,7 +4332,7 @@ int main()
     }
 }
         \end{lstlisting}
-    \subsection{可持久化trie}
+\subsection{可持久化trie}
 bzoj 3261 最大异或和
 \begin{lstlisting}[language=C++]
 #include<bits/stdc++.h>
@@ -4531,8 +4532,8 @@ int main()
     }
 }
         \end{lstlisting}
-    \subsection{二进制分组+AC自动机}
-    \begin{lstlisting}[language=C++]
+\subsection{二进制分组+AC自动机}
+\begin{lstlisting}[language=C++]
 /*
 http://codeforces.com/contest/710/problem/F String Set Queries
 三个操作，往集合里插入、删除字符串，统计集合里的字符串在给定的字符串中出现多少次
@@ -4659,7 +4660,7 @@ int main()
 }
 
     \end{lstlisting}
-    \subsection{线段树}
+\subsection{线段树}
 \begin{itemize}
 	\item 区间加，区间乘，区间覆盖，区间求和，区间最值
 	\item 线段树上二分
@@ -4828,9 +4829,9 @@ int main()
 }
 \end{lstlisting}
 
-    \subsection{莫队算法}
-    \subsubsection*{普通莫队}
-    \begin{lstlisting}[language=C++]
+\subsection{莫队算法}
+\subsubsection*{普通莫队}
+\begin{lstlisting}[language=C++]
 const int SIZE=300;
 struct Q{int l,r,order;} q[N];
 bool cmp(const re &a,const re &b)
@@ -4860,7 +4861,7 @@ int main()
 也就是说我只要记录了之前有多少个修改操作，然后在执行到当前查询的时候我把多进行的修改操作还原，
 少进行的再进行修改就可以保证正确性。同时为了保证复杂度，采取的策略是对于每个询问按(l/block,r/block,time)排序（分别表示l所在的块、
 r所在的询问之前的修改次数），再顺序完成，根据复杂度证明可以保证复杂度上界为n的三分之五次方。
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*
 bzoj 2120 数颜色
 每次查询区间里有多少种不同的数，带单点修改
@@ -5035,10 +5036,10 @@ int main()
 \end{lstlisting}
 \subsection{主席树}
 \begin{itemize}
-\item 可用于求区间第k大，区间小于某个值的数的个数(或者和)，区间不同的数的个数等
+	\item 可用于求区间第k大，区间小于某个值的数的个数(或者和)，区间不同的数的个数等
 \end{itemize}
 
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*
 SPOJ DQUERY
 询问[l,r]有多少个不同的数
@@ -5092,8 +5093,8 @@ int main()
     }
 }
     \end{lstlisting}
-    \subsection{替罪羊树}
-      \begin{lstlisting}[language=C++]
+\subsection{替罪羊树}
+\begin{lstlisting}[language=C++]
 /*
 bzoj 3224 普通平衡树
 */
@@ -5247,7 +5248,7 @@ int main()
     }
 }
          \end{lstlisting}
-\subsection{Treap}   
+\subsection{Treap}
 \begin{lstlisting}[language=C++]
 /*
 bzoj 3224
@@ -5369,7 +5370,7 @@ int main()
     return 0;
 }
 	\end{lstlisting}
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*
 内存池优化
 */
@@ -5525,8 +5526,8 @@ int main()
     }
 }
     \end{lstlisting}
-    \subsection{Splay}
-        \begin{lstlisting}[language=C++] 
+\subsection{Splay}
+\begin{lstlisting}[language=C++] 
 /*
 bzoj 1500 维修数列
 插入，删除，修改，翻转，求和，求和最大的子列
@@ -5730,8 +5731,8 @@ int main(){
 
         \end{lstlisting}
 
-    \subsection{KDtree}
-        \begin{lstlisting}[language=C++]
+\subsection{KDtree}
+\begin{lstlisting}[language=C++]
 /*
 hdu2966 
 二维平面n个点，求其他点与每个点最近的距离的平方
@@ -5812,7 +5813,7 @@ int main()
 }
         \end{lstlisting}
 
-        \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*
 hdu 4347
 k维空间多组询问求最近的M个点
@@ -5916,10 +5917,10 @@ int main()
 }
 
         \end{lstlisting}
-	\subsection{cdq分治}
+\subsection{cdq分治}
 四维偏序，需保证每一维是个排列，数有多少对偏序关系
 cdq分治套cdq分治，时间复杂度$O(nlog^{3}n)$
-        \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
@@ -6181,11 +6182,11 @@ int main()
     return 0;
 }
 \end{lstlisting}
-    \subsection{树链剖分}
+\subsection{树链剖分}
 \begin{itemize}
-\item 可以利用重链dfs序连续，代替倍增求点x往上跳k步的点是谁。
+	\item 可以利用重链dfs序连续，代替倍增求点x往上跳k步的点是谁。
 \end{itemize}
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*
 bzoj 1036
 树，点权，单点修改，路径求最值，求和
@@ -6355,7 +6356,7 @@ int main()
 }
 
     \end{lstlisting}
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*
 hdu 5893
 一棵无根树，两种操作：改变路径上的颜色，和询问路径上有多少段颜色。
@@ -6686,16 +6687,16 @@ int main()
 }
 
 \end{lstlisting}
-	\subsection{Link-Cut tree}
+\subsection{Link-Cut tree}
 \subsubsection*{维护路径}
 \begin{itemize}
-\item Link,Cut操作均无向，需保证合法
-\item Cut操作为以x为根，断掉y与父亲的边
-\item Splay完如果要向下走，需要每次pushdown标记
-\item bzoj 2002 弹飞绵羊 记splay中的子树大小size，Access(x),Splay(x),然后x的左子树大小即为到当前根的距离
-\item The Kunming-Singapore Railway 动态加边的最小生成树，边拆点，维护最大权值的编号。
+	\item Link,Cut操作均无向，需保证合法
+	\item Cut操作为以x为根，断掉y与父亲的边
+	\item Splay完如果要向下走，需要每次pushdown标记
+	\item bzoj 2002 弹飞绵羊 记splay中的子树大小size，Access(x),Splay(x),然后x的左子树大小即为到当前根的距离
+	\item The Kunming-Singapore Railway 动态加边的最小生成树，边拆点，维护最大权值的编号。
 \end{itemize}
-	\begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*
 hdu 4010
 */
@@ -6927,9 +6928,9 @@ int main()
 	\end{lstlisting}
 \subsubsection*{维护子树}
 \begin{itemize}
-\item Link和Access操作有变化
+	\item Link和Access操作有变化
 \end{itemize}
-	\begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*An Easy Problem On The Trees*/
 #include<bits/stdc++.h>
 using namespace std;
@@ -7112,9 +7113,9 @@ int main()
     return 0;
 }
 	\end{lstlisting}
-	
-    \subsection{虚树dp}
-    \begin{lstlisting}[language=C++]
+
+\subsection{虚树dp}
+\begin{lstlisting}[language=C++]
 /*
 bzoj3611 大工程
 每次求k个点两两之间距离的和、最小值、最大值
@@ -7269,10 +7270,10 @@ int main()
     }
 }
     \end{lstlisting}
-    \subsection{按右端点排序}
+\subsection{按右端点排序}
 cf 703D
 求区间中出现偶数次的数的异或和，转化成求区间不同的数的异或和
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 #define N 1000010
 int n,m;
 int a[N],c[N],ans[N],sum[N];
@@ -7321,8 +7322,8 @@ int main()
     \end{lstlisting}
 \subsection{动态队列强制在线}
 \begin{itemize}
-\item 解决强制在线，队尾添加元素，队首出队，查询队列整体信息的一类问题，通常合并信息容易，删除难
-\item 维护两半，后一半入队直接加入合并，前一半维护从分界线开始的所有后缀，出队直接从前一半pop，前一半为空时，重新调整大小，暴力将右半区间的全部元素重建成左边，这样每个元素只会合并两次
+	\item 解决强制在线，队尾添加元素，队首出队，查询队列整体信息的一类问题，通常合并信息容易，删除难
+	\item 维护两半，后一半入队直接加入合并，前一半维护从分界线开始的所有后缀，出队直接从前一半pop，前一半为空时，重新调整大小，暴力将右半区间的全部元素重建成左边，这样每个元素只会合并两次
 \end{itemize}
 \subsection{rope}
 \begin{lstlisting}[language=C++]
@@ -7343,11 +7344,11 @@ s[1]->replace(pos,len,x);
 \end{lstlisting}
 \subsection{bitset}
 \begin{itemize}
-\item bs.count() 返回1的个数
-\item bs.any() 返回是否有1 / bs.none() 返回是否没有1
-\item bs.set() 全都变成1 / bs.set(p) 第p+1位变成1
-\item bs.reset() 全都变成0 / bs.reset(p) 第p+1位变成0
-\item 位运算
+	\item bs.count() 返回1的个数
+	\item bs.any() 返回是否有1 / bs.none() 返回是否没有1
+	\item bs.set() 全都变成1 / bs.set(p) 第p+1位变成1
+	\item bs.reset() 全都变成0 / bs.reset(p) 第p+1位变成0
+	\item 位运算
 \end{itemize}
 
 \section{图论}
@@ -7412,8 +7413,8 @@ int main()
 \end{lstlisting}
 \subsubsection{删边最短路}
 \begin{itemize}
-\item bzoj2725、bzoj4400、2018 USP Try-outs F
-\item 无向图、支持重边、边权非负、删每条边之后的最短路
+	\item bzoj2725、bzoj4400、2018 USP Try-outs F
+	\item 无向图、支持重边、边权非负、删每条边之后的最短路
 \end{itemize}
 \begin{lstlisting}[language=C++]
 #include<bits/stdc++.h>
@@ -7629,7 +7630,7 @@ int main()
 \end{lstlisting}
 
 \subsection{Tarjan}
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 #define N 200010
 int p[N],head[N],last[N],e;
 int dfn[N],low[N],stack[N],cnt[N],color[N];
@@ -7693,8 +7694,8 @@ int main()
     \end{lstlisting}
 \subsection{Bridge}
 \begin{itemize}
-\item 无向图求桥，支持重边。直接拆掉桥就是边BCC。
-\item poj 3177 连通无向图还需要加(leaf+1)/2条边，才能没有桥，leaf表示缩掉边双后树形结构的叶子数
+	\item 无向图求桥，支持重边。直接拆掉桥就是边BCC。
+	\item poj 3177 连通无向图还需要加(leaf+1)/2条边，才能没有桥，leaf表示缩掉边双后树形结构的叶子数
 \end{itemize}
 \begin{lstlisting}[language=C++]
 #define N 5010
@@ -7910,7 +7911,7 @@ int main() {
 \end{lstlisting}
 
 \subsection{网络流}
-        \subsubsection*{Dinic}
+\subsubsection*{Dinic}
 \begin{lstlisting}[language=C++]
 //改成手写队列!
 int head[M],flow[M],last[M];
@@ -7973,7 +7974,7 @@ int main()
     memset(p,0,sizeof(p));
 }
         \end{lstlisting}
-            \subsubsection*{ISAP求最大流}
+\subsubsection*{ISAP求最大流}
 \begin{lstlisting}[language=C]
 struct edge{int t,f;edge*nxt,*pair;}*g[N],*d[N],
 pool[M],*cur=pool;
@@ -7997,7 +7998,7 @@ int main(){S=n+1,T=S+1;
   for(gap[maxflow=0]=T,i=1;i<=T;i++)d[i]=g[i];
   while(h[S]<T)maxflow+=sap(S,inf);}
 \end{lstlisting}
-            \subsubsection*{上下界有源汇网络流}
+\subsubsection*{上下界有源汇网络流}
 $T$向$S$连容量为正无穷的边，将有源汇转化为无源汇。\par
 每条边容量减去下界，设$in[i]$表示流入$i$的下界之和减去流出$i$的下界之和。\par
 新建超级源汇$SS,TT$，对于$in[i]>0$的点，$SS$向$i$连容量为$in[i]$的边。对于$in[i]<0$的点，$i$向$TT$连容量为$-in[i]$的边。\par
@@ -8035,7 +8036,7 @@ add(SS,i,in[i]);else add(i,TT,-in[i]);
   gap[0]=TT;while(h[S]<TT)maxflow+=sap(S,inf,S,T);
   printf("%d",maxflow);}
 \end{lstlisting}
-            \subsubsection*{费用流}
+\subsubsection*{费用流}
 \begin{lstlisting}[language=C]
 const int inf=~0U>>2,N=210,M=20000;
 int n,m,i,tmp,ans,u[M],v[M],c[M],co[M],nxt[M],t=1;
@@ -8059,7 +8060,7 @@ for(tmp=inf,i=T;i!=S;i=u[f[i]])tmp=min(tmp,c[f[i]]);
 c[f[i]]-=tmp,c[f[i]^1]+=tmp;}printf("%d",ans);}
 \end{lstlisting}
 \subsubsection*{zkw费用流}
-             \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*
 bzoj1070 [SCOI2007]修车 费用只能非负
 */
@@ -8162,12 +8163,12 @@ int main()
     printf("%.2f\n",(1.0*ans)/n);
 }
              \end{lstlisting}
-            \subsubsection*{混合图欧拉回路判定}
+\subsubsection*{混合图欧拉回路判定}
 首先给无向边随便定一个方向，设$deg[x]$为$x$连出去的边数$-$连入$x$的边数。\par
 若存在$deg[x]$为奇数或者图不连通则无解。否则建立$S,T$。\par
 对于一个点$x$，若$deg[x]>0$，则$S$向$x$连边，容量$\frac{deg[x]}{2}$；若$deg[x]<0$，则$x$向$T$连边，容量$-\frac{deg[x]}{2}$。\par
 对于一条定了向的无向边$x$->$y$，$x$向$y$连边，容量1，求出最大流，若与$S$和$T$连的每条边都满流，则有解。
-            \subsubsection*{线性规划转费用流}
+\subsubsection*{线性规划转费用流}
 添加松弛变量，将不等号都变为等号。分别用下一个式子减去上一个式子，如果每个变量只出现了两次且符号一正一负，可转费用流。对于每个式子建立一个点，那么每个变量对应一条边，从一个点流出，向另一个点流入。这样对于等式右边的常数$C$，如果是正的，对应从源点向该点连一条流量$C$，费用0的边；如果是负的对应从该点向汇点连一条流量$-C$，费用0的边。对于每个变量，从它系数为正的式子向系数为负的式子连一条容量$inf$，费用为它在目标函数里系数的边。
 \subsection{二分图匹配}
 \subsubsection*{Hungary}
@@ -8318,7 +8319,7 @@ int main() {
 Hall定理：设二分图中G=<V1,V2,E>中 |V1|=m<=|V2|=n,G中存在从V1到V2的完全匹配当且仅当V1中任意k(k=1,2,...,m)个顶点至少与V2中k个顶点是相邻的。
 
 \subsection{第k短路}
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*poj 2449*/
 typedef pair<int,int>P;
 const int N=1010,M=100010,inf=~0U>>1;
@@ -8428,12 +8429,12 @@ main()
     printf("%d",solve());
 }
     \end{lstlisting}
- 	\subsection{Stoer Wagner}
+\subsection{Stoer Wagner}
 \begin{itemize}
-\item 无向图全局最小割。调用前建立邻接矩阵G，跑完后会破坏G。可记录点集。$O(n^3)$
+	\item 无向图全局最小割。调用前建立邻接矩阵G，跑完后会破坏G。可记录点集。$O(n^3)$
 \end{itemize}
 
- 	\begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 #include<cstdio>
 #include<cstring>
 #include<iostream>
@@ -8487,8 +8488,8 @@ int main()
 }
 
  	\end{lstlisting}
-    \subsection{最大团}
-    \begin{lstlisting}[language=C++]
+\subsection{最大团}
+\begin{lstlisting}[language=C++]
 /*
 初始化：
 从一个点 u 开始，把这个点加入集合 U 中。将编号比它大的
@@ -8574,7 +8575,7 @@ int main() {
 }
 
     \end{lstlisting}
-    \section{计算几何}
+\section{计算几何}
 \subsection{Basic}
 \begin{lstlisting}[language=C++]
 const double eps = 1e-8;
@@ -8805,8 +8806,8 @@ bool ConvexContain(Point *p,int n,Point now)
 
 \end{lstlisting}
 
-    \subsection{3D Convex Hull}
-    \begin{lstlisting}[language=C++]
+\subsection{3D Convex Hull}
+\begin{lstlisting}[language=C++]
 /*
 hdu4266
 三维凸包
@@ -9067,11 +9068,11 @@ Point MassCenter(Point *p,int n)
     return ans/area/6;
 }
 \end{lstlisting}
-    \subsection{旋转卡壳}
+\subsection{旋转卡壳}
 \begin{itemize}
-\item 平面最远点对、最大三角形面积、求两凸包最小距离
+	\item 平面最远点对、最大三角形面积、求两凸包最小距离
 \end{itemize}
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*
 Pea-City
 最小矩形覆盖
@@ -9387,7 +9388,7 @@ double CirclesCommonArea( Circle c[], int n )
 }
 
 \end{lstlisting}
-    \subsection{圆与多边形面积交}
+\subsection{圆与多边形面积交}
 \begin{lstlisting}[language=C++]
 //gym 101158 J 模拟退火找圆心位置使得圆与多边形面积交面积最大
 Point p[15];
@@ -9590,8 +9591,8 @@ int main()
 \end{lstlisting}
 
 \section{其他算法}
-   	\subsection{fread读入优化}
-   	\begin{lstlisting}[language=C++]
+\subsection{fread读入优化}
+\begin{lstlisting}[language=C++]
 /*
 在读入大于1e6的时候考虑用fread优化
 */
@@ -9623,8 +9624,8 @@ int main()
 	//...
 }
    	\end{lstlisting}
-    \subsection{中缀表达式求值}
-    \begin{lstlisting}[language=C++]
+\subsection{中缀表达式求值}
+\begin{lstlisting}[language=C++]
 string s;
 stack<int> number;
 stack<char> symbol;
@@ -9710,11 +9711,11 @@ void work()
 }
 
     \end{lstlisting}
-    \subsection{随机化}
+\subsection{随机化}
 \begin{itemize}
-\item 随机一个向量，判断矩阵乘法A×B是否等于C
-\item n个点，m条边的随机无向图，查询两点的最短路可以用双向bfs
-\item 数据随机的维护区间题，如果有区间赋值，那么可以把相邻的相同值缩起来，用set维护
+	\item 随机一个向量，判断矩阵乘法A×B是否等于C
+	\item n个点，m条边的随机无向图，查询两点的最短路可以用双向bfs
+	\item 数据随机的维护区间题，如果有区间赋值，那么可以把相邻的相同值缩起来，用set维护
 \end{itemize}
 
 随机0到1实数的一些姿势
@@ -9823,9 +9824,9 @@ int main()
 \end{lstlisting}
 \subsection{异或线性基}
 \begin{itemize}
-\item 枚举n个数的集合的子集的异或和，则每种值都会出现$2^{n-m}$次，m为线性基的大小
+	\item 枚举n个数的集合的子集的异或和，则每种值都会出现$2^{n-m}$次，m为线性基的大小
 \end{itemize}
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 typedef long long ll;
 #define N 105
 const int MAXL = 62;
@@ -9897,17 +9898,17 @@ void solve()
     }
 }
     \end{lstlisting}
-    \subsection{完全图最小生成树:Boruvka}
-    \begin{itemize}
+\subsection{完全图最小生成树:Boruvka}
+\begin{itemize}
 	\item 基本思想：对每个联通块找出最小的连向其他联通块的边,加入最小生成树
 	\item 时间复杂度$O(nlogn)$,数据随机的情形下可当作$O(n)$(from Claris
 	\item 关键问题在于根据图的性质迅速找到端点颜色不同，边权最大的边。
 	\item HDU6329	二维平面，边权为两点点积，求完全图最小生成树.
 	\item 问题：对于颜色$c_1$找到颜色为$c_2 \neq c_1$,且点积最小的点.
 	\item 做法：将点打在颜色序列上，对序列CDQ分治，分治过程中归并凸壳。
-    \end{itemize}
+\end{itemize}
 
-	\begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 #include <bits/stdc++.h>
 #define rep(i,s,t) for(int i = s;i <= t;i ++)
 #define dow(i,t,s) for(int i = t;i >= s;i --)
@@ -10122,9 +10123,9 @@ int main ()
 }
 
 	\end{lstlisting}
-    \subsection{曼哈顿最小生成树}
+\subsection{曼哈顿最小生成树}
 
-    \begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++]
 /*
 uvalive Another Minimum Spanning Tree
 */
@@ -10234,22 +10235,22 @@ int main()
 }
     \end{lstlisting}
 \section{Java}
-        \subsection{输入}
+\subsection{输入}
 \begin{lstlisting}[language=Java]
 Scanner cin=new Scanner(System.in);//`声明一个输入对象cin`
 Int a=cin.nextInt();//`输入一个int值`
 BigDecimal a=cin.nextBigDecimal();//`输入一个大数`
 while(cin.hasNext()){...}//`EOF结束`
 \end{lstlisting}
-        \subsection{输出}
-            输出任意类型的str。
+\subsection{输出}
+输出任意类型的str。
 \begin{lstlisting}[language=Java]
 System.out.println(str);//`有换行`
 System.out.print(str);//`无换行`
 System.out.println(”str“);//`输出字符串`str
 System.out.printf("Hello,%s.You'll be %d",name,age);
 \end{lstlisting}
-        \subsection{大数类}
+\subsection{大数类}
 \begin{lstlisting}[language=Java]
 BigInteger a=BigInteger.valueOf(12);
 BigInteger b=new BigInteger(String.valueOf(12));
@@ -10280,7 +10281,7 @@ mod(BigInteger val)//`求t`his mod val
 modInverse(BigInteger val)//`求逆元，返回`this^(-1) mod m
 \end{lstlisting}
 \subsubsection{BigDecimal的格式控制}
- toString()将BigDecimal对象的数值转换成字符串。之后可配合字符串处理函数进行一些处理：
+toString()将BigDecimal对象的数值转换成字符串。之后可配合字符串处理函数进行一些处理：
 \begin{lstlisting}[language=Java]
 str.startWith("0")//`以`0`开始`
 str.endWith("0")//`以`0`结束`
@@ -10298,25 +10299,25 @@ HALF$\_$EVEN：向最接近数字方向舍入的舍入模式，如果与两个�
 HALF$\_$UP：向最接近数字方向舍入的舍入模式，如果与两个相邻数字的距离相等，则向上舍入\par
 UNNECESSARY：用于断言请求的操作具有精确结果的舍入模式，因此不需要舍入\par
 UP：远离零方向舍入的舍入模式
-            \subsubsection{创建BigDecimal对象}
+\subsubsection{创建BigDecimal对象}
 \begin{lstlisting}[language=Java]
 BigDecimal bigNumber=new BigDecimal
 ("89.1234567890123456789");
 BigDecimal bigRate=new BigDecimal(1000);
 BigDecimal bigResult=new BigDecimal();//`值为`0.0
 \end{lstlisting}
-            \subsubsection{对bigNumber的值乘以1000，结果赋予bigResult}
+\subsubsection{对bigNumber的值乘以1000，结果赋予bigResult}
 \begin{lstlisting}[language=Java]
 bigResult=bigNumber.multiply(bigRate);
 System.out.println(bigResult);
 \end{lstlisting}
-            \subsubsection{BigInteger的进制转换}
-        Java支持的进制范围为2~36(0~9+小写的a~z)。
+\subsubsection{BigInteger的进制转换}
+Java支持的进制范围为2~36(0~9+小写的a~z)。
 \begin{lstlisting}[language=Java]
 BigInteger a=cin.nextBigInteger(2);//`读入一个二进制数`
 System.out.println(a.toString(2));//`输出二进制`
 \end{lstlisting}
-        \subsection{小数四舍五入}
+\subsection{小数四舍五入}
 \begin{lstlisting}[language=Java]
 import java.util.*;//`输入输出所在的包`
 import java.math.*;//`高精度整数`/`浮点数所在的包`
@@ -10330,7 +10331,7 @@ public static void main(String[] args){
      + new BigDecimal(i).setScale(2,
      BigDecimal.ROUND_HALF_UP));}}
 \end{lstlisting}
-        \subsection{高精度小数A+B，输出最简结果}
+\subsection{高精度小数A+B，输出最简结果}
 \begin{lstlisting}[language=Java]
 import java.math.*;import java.util.*;
 public class Main{
@@ -10348,7 +10349,7 @@ public class Main{
     str=str.substring(0,str.length()-1);
   System.out.println(str);}}}
 \end{lstlisting}
-        \subsection{斐波那契数列}
+\subsection{斐波那契数列}
 \begin{lstlisting}[language=Java]
 import java.util.*;import java.math.*;
 public class Main{
@@ -10362,7 +10363,7 @@ public class Main{
   for(t=input.nextInt();t>0;t--){
   n=input.nextInt();System.out.println(f[n]);}}}
 \end{lstlisting}
-     \subsection{两个高精度浮点数比较是否相等}
+\subsection{两个高精度浮点数比较是否相等}
 \begin{lstlisting}[language=Java]
 import java.math.*;import java.util.*;
 public class Main{
